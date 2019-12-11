@@ -1,12 +1,17 @@
 package com.wego.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Carpark {
     private String id;
     private String address;
+    @JsonProperty("x_coordinate")
     private double xcoordinate;
+    @JsonProperty("y_coordinate")
     private double ycoordinate;
     private double latitude;
     private double longitude;
+    @JsonProperty("carpark_type")
     private String carParkType;
 
     public Carpark(String id,

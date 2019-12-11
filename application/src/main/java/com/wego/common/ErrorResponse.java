@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ErrorResponse implements Response {
+public class ErrorResponse {
 
 	boolean success;
 	HttpStatus errorcode;

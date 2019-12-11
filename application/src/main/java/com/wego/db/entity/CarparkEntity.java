@@ -1,11 +1,11 @@
-package com.wego.db.model;
+package com.wego.db.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "CARPARK")
-public class CarparkModel {
+public class CarparkEntity {
 
     @Id
     @Column(name = "carpark_number")

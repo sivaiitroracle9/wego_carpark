@@ -1,9 +1,17 @@
 package com.wego.dao;
 
-import com.wego.db.model.CarparkModel;
+import com.wego.db.entity.CarparkEntity;
+import com.wego.db.entity.NearestCarpark;
+import com.wego.domain.CarparkAvailability;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface CarparkSystemDao {
 
-	CarparkModel getCarparkDao(String carparkNumber);
+	CarparkEntity getCarparkDao(String carparkNumber);
 
+	boolean updateCarparkAvailabilityEntity(Collection<CarparkAvailability> carparkAvailabilitySet);
+
+	List<NearestCarpark> nearestCarparks(double latitude, double longitude, int page, int per_page);
 }
