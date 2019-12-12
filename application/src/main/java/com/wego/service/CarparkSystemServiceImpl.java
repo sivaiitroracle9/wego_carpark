@@ -1,21 +1,19 @@
 package com.wego.service;
 
-import com.wego.domain.CarparkAvailability;
 import com.wego.dao.CarparkSystemDao;
-import com.wego.db.entity.CarparkEntity;
-import com.wego.domain.Carpark;
-import com.wego.domain.NearestCarpark;
-import com.wego.transformers.CarparkAvailabilityTransformer;
-import com.wego.transformers.NearestCarparkTransformer;
+import com.wego.domain.CarparkView;
+import com.wego.domain.NearestCarparkView;
 import com.wego.webservices.service.CarparkAvailabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.wego.transformers.ApplicationTransformers.transformAvailabilityWebserviceToDomain;
+import static com.wego.transformers.ApplicationTransformers.transformNearestCarparkDbEntityToView;
 
 @Service
 public class CarparkSystemServiceImpl implements CarparkSystemService {
@@ -26,48 +24,35 @@ public class CarparkSystemServiceImpl implements CarparkSystemService {
 	@Autowired
 	private CarparkAvailabilityService carparkAvailabilityService;
 
-	private CarparkAvailabilityTransformer carparkAvlTransformer = new CarparkAvailabilityTransformer();
-
-	private NearestCarparkTransformer nearestCarparkTransformer = new NearestCarparkTransformer();
-
 	@Override
-	public Carpark getCarpark(String carparkNumber) {
-		CarparkEntity carparkDao = dao.getCarparkDao(carparkNumber);
-
-		if (carparkDao == null)
-		{
-			return null;
-		}
-
-		return new Carpark(carparkDao.getCarparkNumber(),
-				carparkDao.getAddress(),
-				carparkDao.getXcoordinate(),
-				carparkDao.getYcoordinate(),
-				carparkDao.getLatitude(),
-				carparkDao.getLongitude(),
-				carparkDao.getCarParkType());
+	public CarparkView getCarpark(String carparkNumber) {
+		return Optional.ofNullable(dao.getCarparkEntity(carparkNumber))
+				.map(entity ->
+						new CarparkView(entity.getCarparkNumber(),
+								entity.getAddress(),
+								entity.getXcoordinate(),
+								entity.getYcoordinate(),
+								entity.getLatitude(),
+								entity.getLongitude(),
+								entity.getCarParkType()))
+				.orElse(null);
 	}
 
 	@Override
 	public boolean loadCarparkAvailabilityData() {
-
-		ResponseEntity<com.wego.webservices.domain.CarparkAvailability> responseEntity = carparkAvailabilityService.getCarparkAvailability();
-
-		if (responseEntity.getStatusCode() == HttpStatus.OK)
-		{
-			com.wego.webservices.domain.CarparkAvailability availabilityData = responseEntity.getBody();
-			Collection<CarparkAvailability> carparkAvailabilityList = carparkAvlTransformer.transform(availabilityData);
-
-			return dao.updateCarparkAvailabilityEntity(carparkAvailabilityList);
-		}
-
-		return false;
+		return Optional.ofNullable(carparkAvailabilityService.getCarparkAvailability())
+				.filter(re -> re.getStatusCode() == HttpStatus.OK)
+				.map(responseEntity -> (com.wego.webservices.domain.CarparkAvailability)responseEntity.getBody())
+				.map(transformAvailabilityWebserviceToDomain())
+				.map(entityList -> dao.updateCarparkAvailabilityEntity(entityList))
+				.orElse(false);
 	}
 
 	@Override
-	public List<NearestCarpark> nearestCarparks(double latitude, double longitude, int page, int per_page)
+	public List<NearestCarparkView> nearestCarparks(double latitude, double longitude, int page, int per_page)
 	{
-		List<com.wego.db.entity.NearestCarpark> entities = dao.nearestCarparks(latitude, longitude, page, per_page);
-		return entities.stream().map(nearestCarparkTransformer::transform).collect(Collectors.toList());
+		return dao.nearestCarparks(latitude, longitude, page, per_page).stream()
+				.map(transformNearestCarparkDbEntityToView())
+				.collect(Collectors.toList());
 	}
 }

@@ -6,13 +6,12 @@ import org.springframework.context.annotation.Import;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-@Import(HibernateConfiguration.class)
+@Import({HibernateConfiguration.class, SwaggerConfig.class})
 public class ApplicationConfig {
 
     @Bean
     public RestTemplate restTemplate()
     {
-
         return new RestTemplate();
     }
 

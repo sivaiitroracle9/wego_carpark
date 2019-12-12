@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 public class CarparkAvailability implements Serializable {
     private LocalDateTime timestamp;
     private String carparkNumber;
-    private String totalLots;
+    private int totalLots;
     private String lotType;
-    private String lotsAvailable;
+    private int lotsAvailable;
     private LocalDateTime updateTime;
 
     public LocalDateTime getTimestamp() {
@@ -27,11 +27,11 @@ public class CarparkAvailability implements Serializable {
         this.carparkNumber = carparkNumber;
     }
 
-    public String getTotalLots() {
+    public int getTotalLots() {
         return totalLots;
     }
 
-    public void setTotalLots(String totalLots) {
+    public void setTotalLots(int totalLots) {
         this.totalLots = totalLots;
     }
 
@@ -43,11 +43,11 @@ public class CarparkAvailability implements Serializable {
         this.lotType = lotType;
     }
 
-    public String getLotsAvailable() {
+    public int getLotsAvailable() {
         return lotsAvailable;
     }
 
-    public void setLotsAvailable(String lotsAvailable) {
+    public void setLotsAvailable(int lotsAvailable) {
         this.lotsAvailable = lotsAvailable;
     }
 

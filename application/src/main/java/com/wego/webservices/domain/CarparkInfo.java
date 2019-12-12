@@ -5,19 +5,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class CarparkInfo {
 
     @JsonProperty("total_lots")
-    private String totalLots;
+    private int totalLots;
 
     @JsonProperty("lot_type")
     private String lotType;
 
     @JsonProperty("lots_available")
-    private String lotsAvailable;
+    private int lotsAvailable;
 
-    public String getTotalLots() {
+    public int getTotalLots() {
         return totalLots;
     }
 
-    public void setTotalLots(String totalLots) {
+    public void setTotalLots(int totalLots) {
         this.totalLots = totalLots;
     }
 
@@ -29,11 +29,11 @@ public class CarparkInfo {
         this.lotType = lotType;
     }
 
-    public String getLotsAvailable() {
+    public int getLotsAvailable() {
         return lotsAvailable;
     }
 
-    public void setLotsAvailable(String lotsAvailable) {
+    public void setLotsAvailable(int lotsAvailable) {
         this.lotsAvailable = lotsAvailable;
     }
 }

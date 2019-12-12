@@ -16,13 +16,13 @@ public class CarparkAvailabilityEntity {
     private LocalDateTime timestamp;
 
     @Column(name = "total_lots")
-    private String totalLots;
+    private int totalLots;
 
     @Column(name = "lot_type")
     private String lotType;
 
     @Column(name = "lot_available")
-    private String lotsAvailable;
+    private int lotsAvailable;
 
     @Column(name = "update_time")
     private LocalDateTime updateTime;
@@ -43,11 +43,11 @@ public class CarparkAvailabilityEntity {
         this.timestamp = timestamp;
     }
 
-    public String getTotalLots() {
+    public int getTotalLots() {
         return totalLots;
     }
 
-    public void setTotalLots(String totalLots) {
+    public void setTotalLots(int totalLots) {
         this.totalLots = totalLots;
     }
 
@@ -59,11 +59,11 @@ public class CarparkAvailabilityEntity {
         this.lotType = lotType;
     }
 
-    public String getLotsAvailable() {
+    public int getLotsAvailable() {
         return lotsAvailable;
     }
 
-    public void setLotsAvailable(String lotsAvailable) {
+    public void setLotsAvailable(int lotsAvailable) {
         this.lotsAvailable = lotsAvailable;
     }
 

@@ -30,9 +30,9 @@ DROP TABLE IF EXISTS CARPARK_AVAILABILITY;
 CREATE table CARPARK_AVAILABILITY (
   carpark_number varchar(255) not null,
   lot_type varchar(255),
-  lot_available varchar(255),
+  lot_available int,
   timestamp datetime,
-  total_lots varchar(255),
+  total_lots int,
   update_time datetime,
   primary key (carpark_number));
 

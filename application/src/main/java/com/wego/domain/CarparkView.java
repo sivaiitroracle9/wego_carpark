@@ -2,7 +2,9 @@ package com.wego.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Carpark {
+import java.io.Serializable;
+
+public class CarparkView implements Serializable {
     private String id;
     private String address;
     @JsonProperty("x_coordinate")
@@ -14,13 +16,13 @@ public class Carpark {
     @JsonProperty("carpark_type")
     private String carParkType;
 
-    public Carpark(String id,
-                   String address,
-                   double xcoordinate,
-                   double ycoordinate,
-                   double latitude,
-                   double longitude,
-                   String carParkType) {
+    public CarparkView(String id,
+                       String address,
+                       double xcoordinate,
+                       double ycoordinate,
+                       double latitude,
+                       double longitude,
+                       String carParkType) {
         this.id = id;
         this.address = address;
         this.xcoordinate = xcoordinate;

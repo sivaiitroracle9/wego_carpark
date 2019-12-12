@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CarparkSystemDao {
 
-	CarparkEntity getCarparkDao(String carparkNumber);
+	CarparkEntity getCarparkEntity(String carparkNumber);
 
 	boolean updateCarparkAvailabilityEntity(Collection<CarparkAvailability> carparkAvailabilitySet);
 

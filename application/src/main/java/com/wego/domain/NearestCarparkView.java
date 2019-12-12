@@ -2,7 +2,9 @@ package com.wego.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class NearestCarpark {
+import java.io.Serializable;
+
+public class NearestCarparkView implements Serializable {
 
     private String address;
     private double latitude;
