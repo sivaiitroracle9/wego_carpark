@@ -1,6 +1,11 @@
-FROM openjdk:8
+FROM alpine/git
+WORKDIR /app
+RUN git clone https://github.com/sivaiitroracle9/wego_carpark.git
 
-RUN mkdir -p /wego/wego_carpark_system
-COPY ./target/application-0.0.1-SNAPSHOT.jar /wego/wego_carpark_system/application-0.0.1-SNAPSHOT.jar
-RUN chmod +x /wego/wego_carpark_system/application-0.0.1-SNAPSHOT.jar
-ENTRYPOINT exec java -Djava.security.egd=file:/dev/./urandom -jar /wego/wego_carpark_system/application-0.0.1-SNAPSHOT.jar
+FROM maven:3.5-jdk-8-alpine
+WORKDIR /app
+COPY --from=0 /app/wego_carpark/application /app
+RUN mvn clean install -DskipTests=true
+RUN ls -ltr /app/target/*
+
+ENTRYPOINT exec java -Djava.security.egd=file:/dev/./urandom -jar /app/target/application-0.0.1-SNAPSHOT.jar

@@ -30,14 +30,13 @@ public class CarparkApplicationController {
 	@RequestMapping(value = "/carpark/{carpark_number}",
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public CarparkView getCarpark(@PathParam("carpark_number") String carparkNumber)
+	public CarparkView getCarpark(@PathVariable("carpark_number") String carparkNumber)
 	{
 		CarparkView carparkView = null;
 		if (!StringUtils.isEmpty(carparkNumber))
 		{
 			carparkView = carparkSystemService.getCarpark(carparkNumber);
 		}
-        https://api.data.gov.sg/v1/transport/carpark-availability?date_time=2019-12-09T13%3A00%3A00
 		return carparkView;
 	}
 
